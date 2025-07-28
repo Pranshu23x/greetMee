@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Greet Me! 💛</title>
+    <title>Greet Me!</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
@@ -60,7 +61,7 @@
         }
         
 :root {
-  --color-bg: url('https://png.pngtree.com/background/20250415/original/pngtree-a-vibrant-scene-of-sunflowers-and-wildflowers-against-soft-yellow-background-picture-image_16426207.jpg');
+  --color-bg: url('https://plus.unsplash.com/premium_photo-1700124162812-1d5d29087b81?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
   --line-color: linear-gradient(to left top, #82ff86 20%, #144425, #104e1c);
   --flower-center: radial-gradient(circle, #000, #ff5e00);
   --leaf-color: radial-gradient(circle, #82ff86, #104e1c);
@@ -640,7 +641,7 @@ body::before {
         }
     </style>
 </head>
-<body class="min-h-screen bg-cover bg-center bg-no-repeat font-[Poppins]" style="background-image: url('https://png.pngtree.com/background/20250415/original/pngtree-a-vibrant-scene-of-sunflowers-and-wildflowers-against-soft-yellow-background-picture-image_16426207.jpg');">
+<body class="min-h-screen bg-cover bg-center bg-no-repeat font-[Poppins]" style="background-image: url('https://plus.unsplash.com/premium_photo-1700124162812-1d5d29087b81?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
 
 
     <!-- Floating sunflower elements -->
@@ -696,13 +697,16 @@ body::before {
 
     <!-- Main content -->
     <div class="container mx-auto px-4 py-8 flex items-center justify-center min-h-screen">
-        <div class="card bg-white/20 border border-white/30 rounded-3xl w-full max-w-md shadow-2xl backdrop-blur-md relative z-10 overflow-hidden transition-all duration-500 hover:backdrop-blur-lg">
-            <div class="text-center p-8 bg-gradient-to-br from-amber-100/20 to-amber-50/20 rounded-t-3xl border-b border-amber-200/30">
-                <h1 class="text-5xl font-bold text-amber-900 mb-3 font-[Pacifico] tracking-wide">Sunflower Greetings</h1>
-                <p class="text-amber-700/90 font-medium tracking-wider">Enter your name below <br>FOR A SURPRISE (and only you can trigger it 🫠)</p>
+        <div class="card bg-gradient-to-br from-amber-50/90 via-amber-100/70 to-amber-50/90 border-2 border-amber-200/50 rounded-3xl w-full max-w-md shadow-[0_20px_50px_rgba(245,158,11,0.1)] relative z-10 overflow-hidden transition-all duration-500 group hover:shadow-[0_30px_60px_rgba(245,158,11,0.2)]">
+            <div class="text-center p-8 bg-gradient-to-br from-amber-200/50 via-amber-100/40 to-amber-200/50 rounded-t-3xl border-b-2 border-amber-300/30 relative overflow-hidden">
+                <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/rice-paper.png')] opacity-20"></div>
+                <h1 class="text-5xl font-bold text-amber-900 mb-3 font-[Pacifico] tracking-wide relative z-10">Greet Me!</h1>
+                <p class="text-amber-800/90 font-medium tracking-wider relative z-10">Enter your name below <br>FOR A SURPRISE (and only you can trigger it 🫠)</p>
+                <div class="absolute -bottom-4 left-1/2 -translate-x-1/2 w-32 h-1 bg-amber-300/50 rounded-full blur-sm group-hover:w-40 group-hover:bg-amber-400/60 transition-all duration-300"></div>
             </div>
             
-            <div id="form-container" class="p-8 pb-10">
+            <div id="form-container" class="p-8 pb-10 relative">
+                <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/rice-paper-2.png')] opacity-10"></div>
                 <div class="input-container mb-6">
                     <input type="text" id="name" class="input-field w-full px-5 py-4 rounded-xl text-amber-900 placeholder-transparent text-lg font-medium" 
                            placeholder="Type your name here..." required>
@@ -711,14 +715,16 @@ body::before {
                     <div id="typing-label" class="text-amber-700 text-sm mt-1 opacity-0 transition-opacity duration-300">Glad you're typing XD</div>
                 </div>
                 
-                <button id="greet-btn" class="btn w-full bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-500 hover:via-amber-600 hover:to-amber-700 font-bold py-4 px-6 rounded-xl transition-all duration-300 mb-6 text-lg shadow-lg hover:shadow-xl active:scale-95 relative overflow-hidden group">
-                    <span class="relative z-10 bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 bg-clip-text text-transparent">Greet Me! ☀️</span>
-                    <span class="absolute inset-0 bg-gradient-to-r from-yellow-200 to-amber-400 opacity-0 group-hover:opacity-30 transition-opacity duration-300"></span>
+                <button id="greet-btn" class="btn w-full bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 hover:from-amber-600 hover:via-amber-500 hover:to-amber-600 font-bold py-4 px-6 rounded-xl transition-all duration-300 mb-6 text-lg shadow-lg hover:shadow-xl active:scale-95 relative overflow-hidden group">
+                    <span class="relative z-10 text-white drop-shadow-sm">Greet Me! ☀️</span>
+                    <span class="absolute inset-0 bg-gradient-to-r from-yellow-200 to-amber-300 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></span>
+                    <span class="absolute inset-0 border-2 border-amber-300/30 rounded-xl pointer-events-none group-hover:border-amber-400/50 transition-all duration-300"></span>
                 </button>
             </div>
             
             <div id="message-container" class="px-8 pb-8 hidden secret-transition secret-hide">
-                <div class="p-6 rounded-xl bg-gradient-to-br from-amber-50/70 to-amber-100/70 text-center border border-amber-200/50 shadow-inner">
+                <div class="p-6 rounded-xl bg-gradient-to-br from-amber-50/90 to-amber-100/80 text-center border-2 border-amber-300/30 shadow-[inset_0_0_20px_rgba(245,158,11,0.1)] relative overflow-hidden">
+                    <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/rice-paper-3.png')] opacity-10"></div>
                     <p id="greeting-message" class="text-amber-900 text-lg"></p>
                     <div id="secret-message" class="hidden mt-4 animate-bounce-in">
                         <div class="absolute inset-0 bg-amber-100/30 rounded-xl"></div>
@@ -958,11 +964,13 @@ body::before {
     <div class="light light-4"></div>
     <div class="light light-5"></div>
     <div class="light light-6"></div>
-    <div class="light light-7"></div>
+    <div class="light light-7">ö</div>
     <div class="light light-8"></div>
     <div class="light light-9"></div>
     <div class="light light-10"></div>
     <div class="light light-11"></div>
     <div class="light light-12"></div>
 </body>
-</html>
+
+
+
