@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sunflower Greetings</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        @keyframes float {
+            0%, 100% { 
+                transform: translateY(0) rotate(0deg) scale(1); 
+            }
+            25% { 
+                transform: translateY(-15px) rotate(2deg) scale(1.02); 
+            }
+            50% { 
+                transform: translateY(-30px) rotate(0deg) scale(1); 
+            }
+            75% { 
+                transform: translateY(-15px) rotate(-2deg) scale(0.98); 
+            }
+        }
+
+        @keyframes floatBackground {
+            0% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-10px) translateX(5px); }
+            50% { transform: translateY(-20px) translateX(0); }
+            75% { transform: translateY(-10px) translateX(-5px); }
+            100% { transform: translateY(0) translateX(0); }
+        }
+
+        .floating-sunflower, .floating-petal {
+            animation: floatBackground 15s ease-in-out infinite;
+            opacity: 0.7;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+            transition: all 0.5s ease;
+        }
+
+        .floating-sunflower:hover {
+            opacity: 0.9;
+            animation-duration: 8s;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        
+:root {
+  --color-bg: url('https://png.pngtree.com/background/20250415/original/pngtree-a-vibrant-scene-of-sunflowers-and-wildflowers-against-soft-yellow-background-picture-image_16426207.jpg');
+  --line-color: linear-gradient(to left top, #82ff86 20%, #144425, #104e1c);
+  --flower-center: radial-gradient(circle, #000, #ff5e00);
+  --leaf-color: radial-gradient(circle, #82ff86, #104e1c);
+  --petal-color: radial-gradient(circle, #ff5e00, #ffbb00);
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(to top, rgba(255, 255, 0, 0.1), rgba(255, 255, 255, 0.1));
+  z-index: -1;
+}
+
+        
+        .flower_wrapper {
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            animation: moving-flower-1 4s linear infinite;
+        }
+        
+        .flower_stem {
+            width: 2vmin;
+            height: 65vmin;
+            background-image: var(--line-color);
+            border-radius: 4vmin;
+            animation-delay: 0.3s;
+        }
+        
+        .flower_center {
+            position: absolute;
+            top: 0vmin;
+            left: 50%;
+            z-index: 5;
+            transform: translateX(-50%) rotate(-10deg);
+            width: 20vmin;
+            height: 20vmin;
+            border-radius: 50%;
+            background: var(--flower-center);
+            animation: open-flower-middle 2s 0.4s backwards;
+        }
+        
+        .flower_petal {
+            position: absolute;
+            left: 50%;
+            z-index: 3;
+            bottom: 55vmin;
+            transform: translateX(-50%);
+            width: 7vmin;
+            height: 17vmin;
+            height: 20vmin;
+            background: var(--petal-color);
+            clip-path: ellipse(50% 50% at 50% 50%);
+            transform-origin: center bottom;
+            animation: open-flower 2s 1s backwards;
+        }
+        
+        .flower_petal-1 {
+            border-radius: 50% 50% 50% / 80% 80% 20% 20%;
+            background-image: none;
+            background: var(--petal-color);
+            animation: open-flower 1.4s 1s backwards;
+        }
+        
+        .flower_petal-2 {
+            transform: translateX(-50%) rotate(-30deg);
+        }
+        
+        .flower_petal-3 {
+            transform: translateX(-50%) rotate(-60deg);
+        }
+        
+        .flower_petal-4 {
+            transform: translateX(-50%) rotate(-90deg);
+        }
+        
+        .flower_petal-5 {
+            transform: translateX(-50%) rotate(-120deg);
+        }
+        
+        .flower_petal-6 {
+            transform: translateX(-50%) rotate(-150deg);
+        }
+        
+        .flower_petal-7 {
+            transform: translateX(-50%) rotate(30deg);
+        }
+        
+        .flower_petal-8 {
+            transform: translateX(-50%) rotate(60deg);
+        }
+        
+        .flower_petal-9 {
+            transform: translateX(-50%) rotate(90deg);
+        }
+        
+        .flower_petal-10 {
+            transform: translateX(-50%) rotate(120deg);
+        }
+        
+        .flower_petal-11 {
+            transform: translateX(-50%) rotate(150deg);
+        }
+        
+        .flower_petal-12 {
+            transform: translateX(-50%) rotate(180deg);
+        }
+        
+        .flower_leaf {
+            position: absolute;
+            left: 60%;
+            bottom: 18vmin;
+            transform: translateX(-45%) rotate(80deg);
+            width: 7vmin;
+            height: 17vmin;
+            background: var(--leaf-color);
+            clip-path: none;
+            border-radius: 10vmin 2vmin 10vmin 2vmin;
+            transform-origin: center bottom;
+        }
+        
+        .flower_leaf-1 {
+            bottom: 18vmin;
+            transform: translateX(-45%) rotate(80deg);
+        }
+        
+        .flower_leaf-2 {
+            bottom: 23vmin;
+            transform: translateX(-55%) rotate(-80deg);
+        }
+        
+        .flower_light {
+            position: absolute;
+            bottom: 70vmin;
+            width: 1vmin;
+            height: 1vmin;
+            background-color: rgb(255, 251, 0);
+            border-radius: 50%;
+            filter: blur(0.2vmin);
+            animation: light-ans 4s linear infinite backwards;
+        }
+        
+        :nth-child(odd) {
+            background-color: rgb(255, 251, 0);
+        }
+        
+        .flower_light-1 {
+            left: -2vmin;
+            animation-delay: 1s;
+        }
+        
+        .flower_light-2 {
+            left: 3vmin;
+            animation-delay: 0.5s;
+        }
+        
+        .flower_light-3 {
+            left: -6vmin;
+            animation-delay: 0.3s;
+        }
+        
+        .flower_light-4 {
+            left: 6vmin;
+            animation-delay: 0.9s;
+        }
+        
+        .flower_light-5 {
+            left: -1vmin;
+            animation-delay: 1.5s;
+        }
+        
+        .flower_light-6 {
+            left: -4vmin;
+            animation-delay: 3s;
+        }
+        
+        .flower_light-7 {
+            left: 3vmin;
+            animation-delay: 2s;
+        }
+        
+        .flower_light-8 {
+            left: -6vmin;
+            animation-delay: 3.5s;
+        }
+        
+        .light {
+            position: absolute;
+            bottom: 0vmin;
+            width: 1vmin;
+            height: 1vmin;
+            background-color: rgb(255, 251, 0);
+            border-radius: 50%;
+            filter: blur(0.2vmin);
+            animation: light-ans-background 7s linear infinite backwards;
+        }
+        
+        :nth-child(odd) {
+            background-color: rgb(255, 251, 0);
+        }
+        
+        .light-1 {
+            left: 10vmin;
+            animation-delay: 1s;
+        }
+        
+        .light-2 {
+            left: 20vmin;
+            animation-delay: 0.5s;
+        }
+        
+        .light-3 {
+            left: 60vmin;
+            animation-delay: 0.3s;
+        }
+        
+        .light-4 {
+            left: 80vmin;
+            animation-delay: 0.9s;
+        }
+        
+        .light-5 {
+            left: 45vmin;
+            animation-delay: 1.5s;
+        }
+        
+        .light-6 {
+            left: 10vmin;
+            animation-delay: 3s;
+        }
+        
+        .light-7 {
+            left: 90vmax;
+            animation-delay: 2s;
+        }
+        
+        .light-8 {
+            left: 60vmax;
+            animation-delay: 3.5s;
+        }
+        
+        .light-9 {
+            left: 70vmax;
+            animation-delay: 2s;
+        }
+        
+        .light-10 {
+            left: 95vmax;
+            animation-delay: 3.5s;
+        }
+        
+        .light-11 {
+            left: 75vmax;
+            animation-delay: 3s;
+        }
+        
+        .light-12 {
+            left: 85vmax;
+            animation-delay: 0.5s;
+        }
+        
+        @keyframes open-flower-leaves {
+            0% {
+                opacity: 0;
+                transform: translateX(-50%) scale(0);
+            }
+        }
+
+        @keyframes moving-flower-1 {
+            0%, 100% { transform: translateX(-10px); }
+            50% { transform: translateX(10px); }
+        }
+        
+        @keyframes open-flower {
+            0% {
+                transform: translateX(-50%) rotate(0);
+            }
+        }
+        
+        @keyframes open-flower-middle {
+            0% {
+                opacity: 0;
+                transform: translateX(-50%) scale(0);
+            }
+        }
+        
+        @keyframes light-ans {
+            0% {
+                opacity: 0;
+                transform: translateY(0vmin);
+            }
+            25% {
+                opacity: 1;
+                transform: translateY(-5vmin) translateX(-2vmin);
+            }
+            50% {
+                opacity: 1;
+                transform: translateY(-15vmin) translateX(2vmin);
+                filter: blur(0.2vmin);
+            }
+            75% {
+                transform: translateY(-20vmin) translateX(-2vmin);
+                filter: blur(0.2vmin);
+            }
+            100% {
+                transform: translateY(-30vmin);
+                opacity: 0;
+                filter: blur(1vmin);
+            }
+        }
+        
+        @keyframes light-ans-background {
+            0% {
+                opacity: 0;
+                transform: translateY(0vmin);
+            }
+            25% {
+                opacity: 1;
+                transform: translateY(-10vmin) translateX(-2vmin);
+            }
+            50% {
+                opacity: 1;
+                transform: translateY(-20vmin) translateX(2vmin);
+                filter: blur(0.2vmin);
+            }
+            60% {
+                transform: translateY(-30vmin) translateX(-2vmin);
+                filter: blur(0.2vmin);
+            }
+            70% {
+                transform: translateY(-40vmin) translateX(2vmin);
+                filter: blur(0.2vmin);
+            }
+            80% {
+                transform: translateY(-50vmin) translateX(-2vmin);
+                filter: blur(0.2vmin);
+            }
+            100% {
+                transform: translateY(-60vmin);
+                opacity: 0;
+                filter: blur(1vmin);
+            }
+        }
+        
+        .sunflower {
+            animation: float 6s ease-in-out infinite;
+            transition: all 0.3s ease;
+        }
+        
+        .sunflower:hover {
+            animation: float 3s ease-in-out infinite, pulse 1.5s ease infinite;
+        }
+        
+        .card {
+            transition: all 0.5s ease;
+            transform-style: preserve-3d;
+        }
+        
+        .card:hover {
+            transform: perspective(1000px) rotateX(5deg) rotateY(5deg);
+            box-shadow: 0 25px 50px -12px rgba(245, 158, 11, 0.3);
+        }
+        
+        .input-field {
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.8);
+            border: 2px solid rgba(245, 158, 11, 0.3);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        .input-field:focus {
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.3), 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border-color: rgba(245, 158, 11, 0.5);
+            outline: none;
+        }
+        
+        .btn {
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px -5px rgba(245, 158, 11, 0.3);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .secret-spin {
+            animation: spin 2s linear, bloom 1.5s ease-out forwards;
+        }
+        
+        .sparkle {
+            animation: pulse 0.5s ease infinite alternate;
+            opacity: 0;
+        }
+        
+        .secret-spin .sparkle {
+            animation: pulse 0.5s ease infinite alternate, fadeIn 1s ease forwards;
+        }
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 0.8;
+            }
+        }
+        
+        @keyframes bloom {
+            0% { transform: scale(0.8) rotate(-5deg); opacity: 0; }
+            60% { transform: scale(1.1) rotate(2deg); opacity: 1; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        @keyframes bounce-in {
+            0% { transform: scale(0.8); opacity: 0; }
+            50% { transform: scale(1.05); }
+            70% { transform: scale(0.95); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .animate-bounce-in {
+            animation: bounce-in 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+        }
+        
+        .bg-gradient {
+            background: url('https://i.pinimg.com/originals/3e/8a/60/3e8a60e3d9e5d5b5e5e5e5e5e5e5e5e5.jpg') center/cover no-repeat fixed;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bg-gradient::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 251, 227, 0.3);
+        }
+
+        @keyframes floatSunflower {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        .floating-sunflower {
+            position: fixed;
+            z-index: -1;
+            opacity: 0.7;
+            animation: floatSunflower 8s ease-in-out infinite;
+            filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.5));
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes floatBackground {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-20px); }
+        }
+
+        @keyframes pulseBackground {
+            0% { opacity: 0.3; }
+            100% { opacity: 0.7; }
+        }
+
+        .card {
+            transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+            transform-style: preserve-3d;
+            will-change: transform;
+        }
+
+        .card:hover {
+            transform: perspective(1000px) rotateX(5deg) rotateY(5deg) translateY(-5px);
+            box-shadow: 0 30px 60px -15px rgba(245, 158, 11, 0.4);
+        }
+
+        .btn {
+            position: relative;
+            overflow: hidden;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3),
+                        inset 0 0 10px rgba(255, 255, 255, 0.2);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4),
+                        inset 0 0 15px rgba(248, 248, 248, 0.3);
+            border-color: rgba(255, 215, 0, 0.5);
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(255, 255, 255, 0) 45%,
+                rgba(255, 255, 255, 0.3) 50%,
+                rgba(255, 255, 255, 0) 55%
+            );
+            transform: rotate(30deg);
+            transition: all 0.7s ease;
+        }
+
+        .btn:hover::after {
+            left: 100%;
+            top: 100%;
+        }
+        
+        /* New stylish input container */
+        .input-container {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+        
+        .input-container label {
+            position: absolute;
+            top: 0;
+            left: 0;
+            color: #663212;
+            transition: all 0.3s ease;
+            transform-origin: left top;
+            pointer-events: none;
+            padding-left: 0.75rem;
+            padding-top: 1rem;
+        }
+        
+        .input-container input:focus + label,
+        .input-container input:not(:placeholder-shown) + label {
+            transform: translateY(-1.25rem) scale(0.85);
+            color: #931818;
+        }
+        
+        .input-highlight {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 2px;
+            width: 0;
+            background-color: #F59E0B;
+            transition: all 0.3s ease;
+        }
+        
+        .input-container input:focus ~ .input-highlight {
+            width: 100%;
+        }
+        
+        /* Faster secret message transition */
+        .secret-transition {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        
+        .secret-show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .secret-hide {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-cover bg-center bg-no-repeat font-[Poppins]" style="background-image: url('https://png.pngtree.com/background/20250415/original/pngtree-a-vibrant-scene-of-sunflowers-and-wildflowers-against-soft-yellow-background-picture-image_16426207.jpg');">
+
+
+    <!-- Floating sunflower elements -->
+    <div class="fixed -left-10 top-1/4 sunflower floating-sunflower" style="z-index: -1; animation-delay: 0s;">
+        <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C12 2 15 5 15 8C15 11 12 13 12 13C12 13 9 11 9 8C9 5 12 2 12 2Z" fill="#F59E0B"/>
+            <path d="M12 22C12 22 15 19 15 16C15 13 12 11 12 11C12 11 9 13 9 16C9 19 12 22 12 22Z" fill="#F59E0B"/>
+            <path d="M2 12C2 12 5 9 8 9C11 9 13 12 13 12C13 12 11 15 8 15C5 15 2 12 2 12Z" fill="#F59E0B"/>
+            <path d="M22 12C22 12 19 9 16 9C13 9 11 12 11 12C11 12 13 15 16 15C19 15 22 12 22 12Z" fill="#F59E0B"/>
+            <circle cx="12" cy="12" r="3" fill="#FCD34D"/>
+        </svg>
+    </div>
+    
+    <div class="fixed -right-10 top-1/3 sunflower" style="z-index: -1;">
+        <svg width="100" height="100" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C12 2 15 5 15 8C15 11 12 13 12 13C12 13 9 11 9 8C9 5 12 2 12 2Z" fill="#F59E0B"/>
+            <path d="M12 22C12 22 15 19 15 16C15 13 12 11 12 11C12 11 9 13 9 16C9 19 12 22 12 22Z" fill="#F59E0B"/>
+            <path d="M2 12C2 12 5 9 8 9C11 9 13 12 13 12C13 12 11 15 8 15C5 15 2 12 2 12Z" fill="#F59E0B"/>
+            <path d="M22 12C22 12 19 9 16 9C13 9 11 12 11 12C11 12 13 15 16 15C19 15 22 12 22 12Z" fill="#F59E0B"/>
+            <circle cx="12" cy="12" r="3" fill="#FCD34D"/>
+        </svg>
+    </div>
+    
+    <div class="fixed left-1/4 bottom-1/4 sunflower" style="z-index: -1;">
+        <svg width="70" height="70" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C12 2 15 5 15 8C15 11 12 13 12 13C12 13 9 11 9 8C9 5 12 2 12 2Z" fill="#F59E0B"/>
+            <path d="M12 22C12 22 15 19 15 16C15 13 12 11 12 11C12 11 9 13 9 16C9 19 12 22 12 22Z" fill="#F59E0B"/>
+            <path d="M2 12C2 12 5 9 8 9C11 9 13 12 13 12C13 12 11 15 8 15C5 15 2 12 2 12Z" fill="#F59E0B"/>
+            <path d="M22 12C22 12 19 9 16 9C13 9 11 12 11 12C11 12 13 15 16 15C19 15 22 12 22 12Z" fill="#F59E0B"/>
+            <circle cx="12" cy="12" r="3" fill="#FCD34D"/>
+        </svg>
+    </div>
+    
+    <div class="fixed right-1/3 top-1/2 sunflower" style="z-index: -1;">
+        <svg width="90" height="90" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C12 2 15 5 15 8C15 11 12 13 12 13C12 13 9 11 9 8C9 5 12 2 12 2Z" fill="#F59E0B"/>
+            <path d="M12 22C12 22 15 19 15 16C15 13 12 11 12 11C12 11 9 13 9 16C9 19 12 22 12 22Z" fill="#F59E0B"/>
+            <path d="M2 12C2 12 5 9 8 9C11 9 13 12 13 12C13 12 11 15 8 15C5 15 2 12 2 12Z" fill="#F59E0B"/>
+            <path d="M22 12C22 12 19 9 16 9C13 9 11 12 11 12C11 12 13 15 16 15C19 15 22 12 22 12Z" fill="#F59E0B"/>
+            <circle cx="12" cy="12" r="3" fill="#FCD34D"/>
+        </svg>
+    </div>
+    
+    <div class="fixed left-1/2 bottom-1/3 sunflower" style="z-index: -1;">
+        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C12 2 15 5 15 8C15 11 12 13 12 13C12 13 9 11 9 8C9 5 12 2 12 2Z" fill="#F59E0B"/>
+            <path d="M12 22C12 22 15 19 15 16C15 13 12 11 12 11C12 11 9 13 9 16C9 19 12 22 12 22Z" fill="#F59E0B"/>
+            <path d="M2 12C2 12 5 9 8 9C11 9 13 12 13 12C13 12 11 15 8 15C5 15 2 12 2 12Z" fill="#F59E0B"/>
+            <path d="M22 12C22 12 19 9 16 9C13 9 11 12 11 12C11 12 13 15 16 15C19 15 22 12 22 12Z" fill="#F59E0B"/>
+            <circle cx="12" cy="12" r="3" fill="#FCD34D"/>
+        </svg>
+    </div>
+
+    <!-- Main content -->
+    <div class="container mx-auto px-4 py-8 flex items-center justify-center min-h-screen">
+        <div class="card bg-white/20 border border-white/30 rounded-3xl w-full max-w-md shadow-2xl backdrop-blur-md relative z-10 overflow-hidden transition-all duration-500 hover:backdrop-blur-lg">
+            <div class="text-center p-8 bg-gradient-to-br from-amber-100/20 to-amber-50/20 rounded-t-3xl border-b border-amber-200/30">
+                <h1 class="text-5xl font-bold text-amber-900 mb-3 font-[Pacifico] tracking-wide">Sunflower Greetings</h1>
+                <p class="text-amber-700/90 font-medium tracking-wider">Enter your name below <br>FOR A SURPRISE (and only you can trigger it 🫠)</p>
+            </div>
+            
+            <div id="form-container" class="p-8 pb-10">
+                <div class="input-container mb-6">
+                    <input type="text" id="name" class="input-field w-full px-5 py-4 rounded-xl text-amber-900 placeholder-transparent text-lg font-medium" 
+                           placeholder="Type your name here..." required>
+                    <label for="name" class="text-amber-900 font-medium">Your Name</label>
+                    <span class="input-highlight"></span>
+                    <div id="typing-label" class="text-amber-700 text-sm mt-1 opacity-0 transition-opacity duration-300">Glad you're typing XD</div>
+                </div>
+                
+                <button id="greet-btn" class="btn w-full bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-500 hover:via-amber-600 hover:to-amber-700 font-bold py-4 px-6 rounded-xl transition-all duration-300 mb-6 text-lg shadow-lg hover:shadow-xl active:scale-95 relative overflow-hidden group">
+                    <span class="relative z-10 bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 bg-clip-text text-transparent">Greet Me! ☀️</span>
+                    <span class="absolute inset-0 bg-gradient-to-r from-yellow-200 to-amber-400 opacity-0 group-hover:opacity-30 transition-opacity duration-300"></span>
+                </button>
+            </div>
+            
+            <div id="message-container" class="px-8 pb-8 hidden secret-transition secret-hide">
+                <div class="p-6 rounded-xl bg-gradient-to-br from-amber-50/70 to-amber-100/70 text-center border border-amber-200/50 shadow-inner">
+                    <p id="greeting-message" class="text-amber-900 text-lg"></p>
+                    <div id="secret-message" class="hidden mt-4 animate-bounce-in">
+                        <div class="absolute inset-0 bg-amber-100/30 rounded-xl"></div>
+                        <svg id="secret-sunflower" width="120" height="120" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="mx-auto mb-4 animate-bounce">
+                            <!-- Petals -->
+                            <path d="M12 2C12 2 15 5 15 8C15 11 12 13 12 13C12 13 9 11 9 8C9 5 12 2 12 2Z" fill="#F59E0B"/>
+                            <path d="M12 22C12 22 15 19 15 16C15 13 12 11 12 11C12 11 9 13 9 16C9 19 12 22 12 22Z" fill="#F59E0B"/>
+                            <path d="M2 12C2 12 5 9 8 9C11 9 13 12 13 12C13 12 11 15 8 15C5 15 2 12 2 12Z" fill="#F59E0B"/>
+                            <path d="M22 12C22 12 19 9 16 9C13 9 11 12 11 12C11 12 13 15 16 15C19 15 22 12 22 12Z" fill="#F59E0B"/>
+                            <!-- Additional petals for fuller look -->
+                            <path d="M5 5C5 5 8 8 8 11C8 14 5 16 5 16C5 16 2 14 2 11C2 8 5 5 5 5Z" fill="#FBBF24" opacity="0.8"/>
+                            <path d="M19 19C19 19 16 16 16 13C16 10 19 8 19 8C19 8 22 10 22 13C22 16 19 19 19 19Z" fill="#FBBF24" opacity="0.8"/>
+                            <path d="M5 19C5 19 8 16 8 13C8 10 5 8 5 8C5 8 2 10 2 13C2 16 5 19 5 19Z" fill="#FBBF24" opacity="0.8"/>
+                            <path d="M19 5C19 5 16 8 16 11C16 14 19 16 19 16C19 16 22 14 22 11C22 8 19 5 19 5Z" fill="#FBBF24" opacity="0.8"/>
+                            <!-- More petals for fuller bloom -->
+                            <path d="M12 1C12 1 16 4 16 8C16 12 12 15 12 15C12 15 8 12 8 8C8 4 12 1 12 1Z" fill="#F59E0B" opacity="0.9"/>
+                            <path d="M12 23C12 23 16 20 16 16C16 12 12 9 12 9C12 9 8 12 8 16C8 20 12 23 12 23Z" fill="#F59E0B" opacity="0.9"/>
+                            <path d="M1 12C1 12 4 8 8 8C12 8 15 12 15 12C15 12 12 16 8 16C4 16 1 12 1 12Z" fill="#F59E0B" opacity="0.9"/>
+                            <path d="M23 12C23 12 20 8 16 8C12 8 9 12 9 12C9 12 12 16 16 16C20 16 23 12 23 12Z" fill="#F59E0B" opacity="0.9"/>
+                            <!-- Center with more detail -->
+                            <circle cx="12" cy="12" r="4" fill="#92400E"/>
+                            <circle cx="12" cy="12" r="3" fill="#B45309"/>
+                            <circle cx="12" cy="12" r="2" fill="#D97706"/>
+                            <circle cx="12" cy="12" r="1" fill="#F59E0B"/>
+                            <!-- Sparkle effect -->
+                            <circle cx="8" cy="8" r="0.5" fill="white" class="sparkle"/>
+                            <circle cx="16" cy="16" r="0.5" fill="white" class="sparkle"/>
+                            <circle cx="8" cy="16" r="0.5" fill="white" class="sparkle"/>
+                            <circle cx="16" cy="8" r="0.5" fill="white" class="sparkle"/>
+                        </svg>
+                        <p class="text-amber-800 font-bold text-xl mb-4">Oops...this name worked?🌻</p>
+                        <p class="text-amber-700">Well well... someone cracked the code <br> 
+                      Welcome to your corner of this digital garden. 🌻 <br> Lets connect!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <audio id="sunflower-sound" src="data:audio/mpeg;base64,SUQzBAAAAAABEVRYWFgAAAAtAAADY29tbWVudABCaWdTb3VuZEJhbmsuY29tIC8gTGFTb25vdGhlcXVlLm9yZwBURU5DAAAAHQAAA1N3aXRjaCBQbHVzIMKpIE5DSCBTb2Z0d2FyZQBUSVQyAAAABgAAAzIyMzUAVFNTRQAAAA8AAANMYXZmNTcuODMuMTAwAAAAAAAAAAAAAAD/80DEAAAAA0gAAAAATEFNRTMuMTAwVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQsRbAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQMSkAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV" preload="auto"></audio>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const nameInput = document.getElementById('name');
+            const greetBtn = document.getElementById('greet-btn');
+            const messageContainer = document.getElementById('message-container');
+            const greetingMessage = document.getElementById('greeting-message');
+            const secretMessage = document.getElementById('secret-message');
+            const formContainer = document.getElementById('form-container');
+            const secretSunflower = document.getElementById('secret-sunflower');
+            const sunflowerSound = document.getElementById('sunflower-sound');
+            
+            const typingLabel = document.getElementById('typing-label');
+            const SECRET_NAME = "archita";
+            
+            nameInput.addEventListener('focus', function() {
+                typingLabel.classList.remove('opacity-0');
+                typingLabel.classList.add('opacity-100');
+            });
+            
+            nameInput.addEventListener('blur', function() {
+                typingLabel.classList.remove('opacity-100');
+                typingLabel.classList.add('opacity-0');
+            });
+            
+            greetBtn.addEventListener('click', function() {
+                const name = nameInput.value.trim();
+                
+                if (name === '') {
+                    alert('Please enter your name first!');
+                    return;
+                }
+                
+                // Hide form immediately
+                formContainer.classList.add('hidden');
+                
+                // Show message container with smooth transition
+                messageContainer.classList.remove('hidden');
+                setTimeout(() => {
+                    messageContainer.classList.remove('secret-hide');
+                    messageContainer.classList.add('secret-show');
+                }, 10);
+                
+                if (name.toLowerCase().includes(SECRET_NAME)) {
+                    // Secret message
+                    greetingMessage.classList.add('hidden');
+                    secretMessage.classList.remove('hidden');
+                    secretSunflower.classList.add('secret-spin');
+                    document.getElementById('right-sunflower').classList.remove('hidden');
+                    
+                    // Play sound
+                    sunflowerSound.play();
+                    
+                    // Confetti with slight delay to match animation
+                    setTimeout(() => {
+                        confetti({
+                            particleCount: 150,
+                            spread: 70,
+                            origin: { y: 0.5 },
+                            colors: ['#F59E0B', '#FCD34D', '#FFFFFF'],
+                            shapes: ['circle'],
+                            scalar: 0.8,
+                            ticks: 100,
+                            gravity: 0.5,
+                            drift: 0.5,
+                            decay: 0.94
+                        });
+                    }, 300);
+                } else {
+                    // Regular greeting
+                    greetingMessage.innerHTML = `Hey <span class="font-bold text-amber-800">${name}</span>, nice to meet you!<br>Let's connect  🌻`;
+                    greetingMessage.classList.remove('hidden');
+                    secretMessage.classList.add('hidden');
+                    secretSunflower.classList.remove('secret-spin');
+                    document.getElementById('right-sunflower').classList.add('hidden');
+                    
+                    // Redirect to Instagram after 4 seconds
+                    setTimeout(() => {
+                        window.location.href = 'https://www.instagram.com/pranshu23x/';
+                    }, 4000);
+                }
+            });
+            
+            function resetForm() {
+                // Hide message with transition
+                messageContainer.classList.remove('secret-show');
+                messageContainer.classList.add('secret-hide');
+                
+                // After transition completes, reset everything
+                setTimeout(() => {
+                    messageContainer.classList.add('hidden');
+                    formContainer.classList.remove('hidden');
+                    nameInput.value = '';
+                    secretSunflower.classList.remove('secret-spin');
+                }, 300);
+            }
+            
+            // Add hover effect to all sunflowers
+            const sunflowers = document.querySelectorAll('.sunflower');
+            sunflowers.forEach(sunflower => {
+                sunflower.addEventListener('mouseenter', function() {
+                    this.style.animation = 'pulse 1s ease infinite';
+                });
+                
+                sunflower.addEventListener('mouseleave', function() {
+                    this.style.animation = 'float 6s ease-in-out infinite';
+                });
+            });
+            
+            // Preload the secret sunflower animation
+            secretSunflower.style.opacity = '0';
+        });
+    </script>
+    <!-- Floating sunflower petals -->
+    <div class="fixed -left-10 top-1/4 sunflower floating-sunflower" style="z-index: -1; animation-delay: 0s;">
+        <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C12 2 15 5 15 8C15 11 12 13 12 13C12 13 9 11 9 8C9 5 12 2 12 2Z" fill="#F59E0B" opacity="0.7"/>
+            <circle cx="12" cy="12" r="3" fill="#FCD34D"/>
+        </svg>
+    </div>
+    
+    <!-- More floating petals -->
+    <div class="fixed right-10 bottom-1/4 sunflower floating-sunflower" style="z-index: -1; animation-delay: 1s;">
+        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C12 2 15 5 15 8C15 11 12 13 12 13C12 13 9 11 9 8C9 5 12 2 12 2Z" fill="#F59E0B" opacity="0.6"/>
+            <circle cx="12" cy="12" r="2" fill="#FCD34D"/>
+        </svg>
+    </div>
+
+    <!-- Floating single petals -->
+    <div class="fixed left-1/4 top-1/3 floating-petal" style="z-index: -1; animation-delay: 0.5s;">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C12 2 15 5 15 8C15 11 12 13 12 13C12 13 9 11 9 8C9 5 12 2 12 2Z" fill="#F59E0B" opacity="0.5"/>
+        </svg>
+    </div>
+    <div class="floating-sunflower" style="top: 10%; left: 10%; width: 80px; animation-delay: 0.5s;">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C12 2 15 5 15 8C15 11 12 13 12 13C12 13 9 11 9 8C9 5 12 2 12 2Z" fill="#F59E0B" opacity="0.8"/>
+            <circle cx="12" cy="12" r="3" fill="#92400E"/>
+        </svg>
+    </div>
+    <div class="floating-sunflower" style="top: 80%; left: 20%; width: 60px; animation-delay: 1s;">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C12 2 15 5 15 8C15 11 12 13 12 13C12 13 9 11 9 8C9 5 12 2 12 2Z" fill="#F59E0B" opacity="0.6"/>
+            <circle cx="12" cy="12" r="2" fill="#92400E"/>
+        </svg>
+    </div>
+    <div class="floating-sunflower" style="top: 30%; right: 15%; width: 100px; animation-delay: 1.5s;">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C12 2 15 5 15 8C15 11 12 13 12 13C12 13 9 11 9 8C9 5 12 2 12 2Z" fill="#F59E0B"/>
+            <path d="M12 22C12 22 15 19 15 16C15 13 12 11 12 11C12 11 9 13 9 16C9 19 12 22 12 22Z" fill="#F59E0B"/>
+            <path d="M2 12C2 12 5 9 8 9C11 9 13 12 13 12C13 12 11 15 8 15C5 15 2 12 2 12Z" fill="#F59E0B"/>
+            <path d="M22 12C22 12 19 9 16 9C13 9 11 12 11 12C11 12 13 15 16 15C19 15 22 12 22 12Z" fill="#F59E0B"/>
+            <circle cx="12" cy="12" r="3" fill="#92400E"/>
+        </svg>
+    </div>
+    <div class="floating-sunflower" style="top: 70%; right: 15%; width: 200px; animation-delay: 2s;">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C12 2 15 5 15 8C15 11 12 13 12 13C12 13 9 11 9 8C9 5 12 2 12 2Z" fill="#F59E0B"/>
+            <path d="M12 22C12 22 15 19 15 16C15 13 12 11 12 11C12 11 9 13 9 16C9 19 12 22 12 22Z" fill="#F59E0B"/>
+            <path d="M2 12C2 12 5 9 8 9C11 9 13 12 13 12C13 12 11 15 8 15C5 15 2 12 2 12Z" fill="#F59E0B"/>
+            <path d="M22 12C22 12 19 9 16 9C13 9 11 12 11 12C11 12 13 15 16 15C19 15 22 12 22 12Z" fill="#F59E0B"/>
+            <circle cx="12" cy="12" r="3" fill="#92400E"/>
+        </svg>
+    </div>
+    <div class="sunflower fixed bottom-0 right-0 hidden" id="right-sunflower" style="z-index: 0; transform: rotate(-15deg); transform-origin: bottom center; margin-right: 5vw; filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.5));">
+        <div class="flower_wrapper" style="transform: rotate(15deg); transform-origin: bottom center;">
+            <div class="flower_stem"></div>
+            <div class="flower_center"></div>
+            <div class="flower_petal flower_petal-1"></div>
+            <div class="flower_petal flower_petal-2"></div>
+            <div class="flower_petal flower_petal-3"></div>
+            <div class="flower_petal flower_petal-4"></div>
+            <div class="flower_petal flower_petal-5"></div>
+            <div class="flower_petal flower_petal-6"></div>
+            <div class="flower_petal flower_petal-7"></div>
+            <div class="flower_petal flower_petal-8"></div>
+            <div class="flower_petal flower_petal-9"></div>
+            <div class="flower_petal flower_petal-10"></div>
+            <div class="flower_petal flower_petal-11"></div>
+            <div class="flower_petal flower_petal-12"></div>
+            <div class="flower_leaf flower_leaf-1"></div>
+            <div class="flower_leaf flower_leaf-2"></div>
+            <div class="flower_light flower_light-1"></div>
+            <div class="flower_light flower_light-2"></div>
+            <div class="flower_light flower_light-3"></div>
+            <div class="flower_light flower_light-4"></div>
+            <div class="flower_light flower_light-5"></div>
+            <div class="flower_light flower_light-6"></div>
+            <div class="flower_light flower_light-7"></div>
+            <div class="flower_light flower_light-8"></div>
+        </div>
+    </div>
+    <div class="light light-1"></div>
+    <div class="light light-2"></div>
+    <div class="light light-3"></div>
+    <div class="light light-4"></div>
+    <div class="light light-5"></div>
+    <div class="light light-6"></div>
+    <div class="light light-7"></div>
+    <div class="light light-8"></div>
+    <div class="light light-9"></div>
+    <div class="light light-10"></div>
+    <div class="light light-11"></div>
+    <div class="light light-12"></div>
+</body>
+</html>
