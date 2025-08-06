@@ -812,8 +812,6 @@
                       // Secret message
                       greetingMessage.classList.add('hidden');
                       secretMessage.classList.remove('hidden');
-                      secretSunflower.classList.add('secret-spin');
-                      document.getElementById('right-sunflower').classList.remove('hidden');
                       
                       // Play sound
                       sunflowerSound.play();
@@ -821,18 +819,38 @@
                       // Confetti with slight delay to match animation
                       setTimeout(() => {
                           confetti({
-                              particleCount: 150,
-                              spread: 70,
-                              origin: { y: 0.5 },
-                              colors: ['#F59E0B', '#FCD34D', '#FFFFFF'],
-                              shapes: ['circle'],
-                              scalar: 0.8,
-                              ticks: 100,
-                              gravity: 0.5,
-                              drift: 0.5,
-                              decay: 0.94
+                              particleCount: 200,
+                              spread: 90,
+                              origin: { y: 0.4 },
+                              colors: ['#F59E0B', '#FCD34D', '#FFFFFF', '#FBBF24'],
+                              shapes: ['circle', 'square'],
+                              scalar: 1,
+                              ticks: 200,
+                              gravity: 0.3,
+                              drift: 0.3,
+                              decay: 0.92,
+                              startVelocity: 25,
+                              disableForReducedMotion: true,
+                              zIndex: 9999
                           });
-                      }, 300);
+                          
+                          // Add a second burst for more impact
+                          setTimeout(() => {
+                              confetti({
+                                  particleCount: 100,
+                                  spread: 120,
+                                  origin: { y: 0.6 },
+                                  colors: ['#F59E0B', '#FCD34D'],
+                                  shapes: ['circle'],
+                                  scalar: 0.9,
+                                  ticks: 150,
+                                  gravity: 0.4,
+                                  drift: 0.2,
+                                  decay: 0.94,
+                                  startVelocity: 20
+                              });
+                          }, 300);
+                      }, 200);
                   } else {
                       // Regular greeting
                       greetingMessage.innerHTML = `Hey <span class="font-bold text-amber-800">${name}</span>, nice to meet you!<br>Let's connect  🌻`;
@@ -929,34 +947,6 @@
               <path d="M22 12C22 12 19 9 16 9C13 9 11 12 11 12C11 12 13 15 16 15C19 15 22 12 22 12Z" fill="#F59E0B"/>
               <circle cx="12" cy="12" r="3" fill="#92400E"/>
           </svg>
-      </div>
-      <div class="sunflower fixed bottom-0 right-0 hidden" id="right-sunflower" style="z-index: 0; transform: rotate(-15deg); transform-origin: bottom center; margin-right: 5vw; filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.5));">
-          <div class="flower_wrapper" style="transform: rotate(15deg); transform-origin: bottom center;">
-              <div class="flower_stem"></div>
-              <div class="flower_center"></div>
-              <div class="flower_petal flower_petal-1"></div>
-              <div class="flower_petal flower_petal-2"></div>
-              <div class="flower_petal flower_petal-3"></div>
-              <div class="flower_petal flower_petal-4"></div>
-              <div class="flower_petal flower_petal-5"></div>
-              <div class="flower_petal flower_petal-6"></div>
-              <div class="flower_petal flower_petal-7"></div>
-              <div class="flower_petal flower_petal-8"></div>
-              <div class="flower_petal flower_petal-9"></div>
-              <div class="flower_petal flower_petal-10"></div>
-              <div class="flower_petal flower_petal-11"></div>
-              <div class="flower_petal flower_petal-12"></div>
-              <div class="flower_leaf flower_leaf-1"></div>
-              <div class="flower_leaf flower_leaf-2"></div>
-              <div class="flower_light flower_light-1"></div>
-              <div class="flower_light flower_light-2"></div>
-              <div class="flower_light flower_light-3"></div>
-              <div class="flower_light flower_light-4"></div>
-              <div class="flower_light flower_light-5"></div>
-              <div class="flower_light flower_light-6"></div>
-              <div class="flower_light flower_light-7"></div>
-              <div class="flower_light flower_light-8"></div>
-          </div>
       </div>
       <div class="light light-1"></div>
       <div class="light light-2"></div>
